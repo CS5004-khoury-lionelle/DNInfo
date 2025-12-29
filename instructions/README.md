@@ -157,6 +157,257 @@ Inside of [Report.md](../Report.md) you will need to answer a series of question
 > [!IMPORTANT]
 > A primary purpose of this activity is to get you working through a process in addition to writing code. In software engineering the process you follow is often just as important as the code you write. This is because the process is what allows you to work with others, and to be able to maintain and update code over time. It may seem tedious right now, but it is a skill that will pay off in the long run.
 
+## 🤖 Use of LLMs
+
+You may use LLMs for coding assistance, but **NOT for design documents or reports**. Since this assignment emphasizes working with multiple file formats and library integration, **all architectural decisions must be yours**.
+
+### What's Different This Time
+
+This assignment involves using the Jackson library to handle multiple file formats (CSV, XML, JSON). LLMs can help you understand library APIs and see usage examples, but shouldn't design your class structure or data flow architecture.
+
+### Recommended LLM Usage
+
+#### ✅ **Good Uses:**
+1. **Understanding Jackson library** and its APIs
+2. **Learning serialization/deserialization** patterns
+3. **Generating unit tests** (after you design your classes)
+4. **Understanding provided complex classes**
+5. **Code completion** for boilerplate after detailed comments
+6. **Refactoring for simplicity** after your initial implementation
+
+#### ❌ **Avoid:**
+- Having AI design your file I/O architecture
+- Asking AI to plan your class hierarchy from scratch
+- Using AI to write design rationale or report sections
+- Copy-pasting AI-generated designs without understanding them
+
+### Smart Prompting for This Assignment
+
+#### **For Understanding Jackson Library Basics**
+
+````
+I'm learning to use the Jackson library in Java to work with JSON, CSV, and XML file formats.
+
+Please explain:
+1. What is Jackson and what are its main components (ObjectMapper, JsonNode, etc.)?
+2. How do I serialize a Java object to JSON/CSV/XML?
+3. How do I deserialize JSON/CSV/XML back into Java objects?
+4. What annotations does Jackson provide (@JsonProperty, @JsonIgnore, etc.) and when should I use them?
+5. Show me a simple example of writing an object to JSON and reading it back
+
+Keep examples minimal and focus on core concepts first.
+````
+
+#### **For Polymorphic Serialization with Jackson**
+
+````
+I need to write data in multiple formats (JSON, CSV, XML) but want to use inheritance so I don't duplicate code.
+
+Given this design approach:
+- I have a FileWriter parent class/interface
+- I want child classes like JsonFileWriter, CsvFileWriter, XmlFileWriter
+- Each should use the appropriate Jackson ObjectMapper
+- The parent class should handle common logic
+
+Please explain:
+1. How can I pass different ObjectMapper configurations to child classes?
+2. Can I write a generic write() method that works for all formats?
+3. What parts should be in the parent vs. child classes?
+4. Show me a minimal example structure (just the class outline, not full implementation)
+
+Don't design my entire system - just show me how Jackson works with inheritance patterns.
+````
+
+#### **For Understanding CSV with Jackson**
+
+````
+I need to write Java objects to CSV format using Jackson. CSV is different from JSON because it's tabular.
+
+Please explain:
+1. What's the difference between CsvMapper and ObjectMapper?
+2. How do I define CSV schemas for my data classes?
+3. How do I handle CSV headers?
+4. Show me an example of writing a List of objects to CSV
+5. Show me an example of reading CSV back into objects
+
+I want to understand the CSV-specific parts of Jackson.
+````
+
+#### **For Understanding XML with Jackson**
+
+````
+I need to work with XML files using Jackson (not DOM or SAX).
+
+Please explain:
+1. What's the difference between XmlMapper and ObjectMapper?
+2. What XML-specific annotations exist (@JacksonXmlProperty, @JacksonXmlRootElement, etc.)?
+3. How do I handle XML attributes vs. elements?
+4. Show me a simple example of writing an object to XML
+5. Show me a simple example of reading XML into an object
+
+Focus on Jackson's XML approach specifically.
+````
+
+#### **For Understanding Provided Complex Classes**
+
+````
+I've been provided with the following complex class in my assignment:
+
+```java
+[paste the provided class code here]
+```
+
+Please help me understand this code:
+1. What is the overall purpose of this class?
+2. Explain each method and what it does
+3. What design patterns (if any) does it use?
+4. How should I use this class in my own code?
+5. What are the key things I need to know to work with it effectively?
+
+Break down complex parts step by step. If there are Jackson annotations or library calls, explain those specifically.
+````
+
+#### **For Q&A on Provided Code**
+
+````
+I'm working with this provided class:
+
+```java
+[paste relevant portion]
+```
+
+I have specific questions:
+1. [Your specific question about a method]
+2. [Your question about how something works]
+3. [Your question about how to use it]
+
+Please answer each question and provide small examples if helpful.
+````
+
+#### **For Code Review & Simplification**
+
+````
+I've implemented my file writing system but I'm duplicating code across formats. Here's my code:
+
+```java
+[paste your working code]
+```
+
+My design uses these classes: [list your classes]
+
+Please review my code and suggest ways to:
+1. Eliminate code duplication using inheritance or composition
+2. Identify repeated Jackson patterns that could be abstracted
+3. Point out if I'm fighting against Jackson's design (doing things the hard way)
+4. Suggest if I'm over-complicating the ObjectMapper usage
+
+**Important:** Don't redesign my architecture. Focus on simplifying what I've already built.
+````
+
+#### **For Understanding Error Handling with Jackson**
+
+````
+I need to handle errors when reading/writing files with Jackson.
+
+Please explain:
+1. What exceptions does Jackson throw (JsonProcessingException, IOException, etc.)?
+2. When do these exceptions occur?
+3. Should I catch them in my FileWriter classes or let them propagate?
+4. Show me an example of proper try-catch usage with Jackson
+5. How do I provide meaningful error messages when serialization fails?
+````
+
+#### **For Parsing Command Line Arguments**
+
+````
+I need to parse command line arguments in Java without using third-party libraries (just standard Java).
+
+My program will be called like:
+java MyProgram --input data.json --output results.csv --format xml
+
+Please explain:
+1. What is the args[] parameter in main(String[] args)?
+2. How do I parse arguments with flags (like --input, --format)?
+3. How do I handle optional vs. required arguments?
+4. How do I validate that arguments are in the correct format?
+5. Show me a simple example of parsing 2-3 command line arguments
+
+Focus on clean, maintainable code without external libraries.
+````
+
+#### **For Robust Command Line Parsing**
+
+````
+I want to write robust command line argument parsing that handles edge cases.
+
+Please help me think through:
+1. What if arguments are in the wrong order?
+2. What if someone provides --input twice?
+3. How do I provide helpful error messages for invalid arguments?
+4. Should I use a Map to store parsed arguments, or individual variables?
+5. Show me an example of validating arguments and providing clear error messages
+
+I want to understand best practices for argument parsing in standard Java.
+````
+
+#### **⚠️ Dangerous Prompts (Don't Use Early)**
+
+````
+❌ Design a complete file I/O system for me that handles JSON, CSV, and XML using Jackson and inheritance.
+
+❌ Here's my assignment requirements [paste entire assignment]. Write the code for me.
+
+❌ I need to read and write multiple file formats. What's the best architecture?
+````
+
+**Why these are risky:** You'll get a complete design handed to you, which defeats the learning objective. Use these types of prompts **only after** you have a working design and want alternative perspectives.
+
+### Test-Driven Development Reminder
+
+Continue writing tests **before** implementation:
+1. Design your class hierarchy (paper/whiteboard)
+2. Write test cases for one class/format (start with JSON, it's simplest)
+3. Implement that class
+4. Run tests and refactor
+5. Add the next format (CSV or XML)
+6. Repeat
+
+Use LLMs to generate test cases after YOU define what needs testing.
+
+### Working with Jackson - Best Practices
+
+1. **Start with JSON** - It's the simplest format to learn Jackson with
+2. **Test with small data** - Use simple objects before complex nested structures
+3. **Read Jackson docs** - Use LLMs to explain confusing parts, not replace reading
+4. **Handle exceptions** - File I/O always needs error handling
+5. **Test all formats** - Don't assume if JSON works, CSV will work the same way
+
+### Pre-Submission Checklist
+
+- [ ] I designed my file I/O architecture myself
+- [ ] I chose which classes handle serialization and why
+- [ ] I decided what methods belong in parent vs. child classes
+- [ ] I understand how Jackson works (not just copy-pasted code)
+- [ ] I can explain why I used specific Jackson features
+- [ ] I used LLMs only for learning the library and code improvement
+- [ ] I can justify every design decision in my report
+- [ ] My report contains my own analysis (no AI-generated content)
+- [ ] I tested all three file formats (JSON, CSV, XML)
+- [ ] I documented my LLM usage with specific examples
+
+### LLM Disclosure Requirements
+
+Include in your submission:
+1. **What you used AI for** (e.g., "understanding Jackson CSV API," "generating unit tests," "understanding provided helper classes")
+2. **Example prompts** showing how you used AI
+3. **What you changed** from AI suggestions
+4. **Design decisions AI didn't make** for you
+
+> [!IMPORTANT]
+> Don't overcomplicate this assignment. In practice it is *MUCH* less code than previous assignments. LLMS can often suggest more detailed solutions than you need. This assignment is focused on parsing the command line to help you build the correct objects, and then the rest of your code properly uses polymorphism by passing in the values. 
+
+**Remember:** This assignment tests your ability to integrate libraries and design flexible file I/O systems. AI can help you learn Jackson, but it may have issues with complex code.
+
 
 
 
